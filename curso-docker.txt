@@ -1,0 +1,119 @@
+* Mapeando volume(pasta) do host com o volume(pasta) do nginx(container)
+docker container run -p 8080:80 -v $(pwd)/folder_especific:/usr/share/nginx/html ngnix
+
+* Rodando container em background
+sudo docker container run -d --name ex-daemon -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html nginx
+
+* Parando container
+sudo docker container stop ex-daemon
+
+* Restartando o container
+sudo docker container restart ex-daemon
+
+* Listar containers
+docker container ps
+docker container list
+docker container ls
+
+* Listar container que ja rodaram alguma vez na vida
+docker container ls -a
+
+* Listar logs de container
+docker container logs ex-daemon
+
+* Inspecionar o container
+docker container inspect ex-daemon
+
+* Diferença entre Imagem e Container
+Imagem seria a classe. É o modelo de sistemas de arquivo para criação de containers.
+Container seria o objeto. Processo isolado onde podemos criar subprocessos que tem acesso ao sistema de acesso. Container cria uma nova layer onde há alterações onde o mesmo pode fazer, exlusão de arquivos, alterações, novas configurações.
+
+* Adicionar tag
+docker image tag redis:latest my-tag-name
+
+* Excluir image
+docker image rm redis:latest my-tag-name
+
+* Baixar image
+docker image pull <name>
+
+* Listar imagens
+docker image ls
+
+* Remover image
+docker image rm <name_tag ou name_tag por espaço ou hash>
+
+* Inspecionar image
+docker image isnpect
+
+* Gerar imagem
+docker image build
+
+* Publicar uma imagem docker
+docker image push
+
+* Docker Hub e Docker Registry
+Registry - server side service para registro e obtenção de imagens. Serviço que disponibiliza uma API para obter/publicar uma imagem.
+HUB - SaaS produto na nuvem. Dentro de um HUB tem um registry. 
+
+* Construindo uma imagem a partir do 'Dockerfile'
+sudo docker image build -t build-arg .
+
+* Rodando image e passando argumento
+sudo docker image build --build-arg S3_BUCKET=myapp -t build-arg .
+
+* Rodando o container e imprimindo o argumento
+sudo docker container run build-arg bash -c 'echo $S3_BUCKET'
+
+* Criando um container com volume e rodando um servidor em python com logs
+sudo docker container run -it -v $(pwd):/app -p 80:8000 --name python-server ex-build-dev
+
+* Rodando um volume de log a aprtir do container python-server
+sudo docker container run -it --volumes-from=python-server debian cat /log/http-server.log
+
+## Enviar pro Docker HUB
+
+* Link
+https://hub.docker.com/
+
+* Criando a imagem
+sudo docker image tag first-build dslaurindo/first-build:1.0
+
+* Logando
+docker login --username=dslaurindo
+--> digite sua senha
+
+* Enviando a imagem
+sudo docker image push dslaurindo/first-build:1.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
